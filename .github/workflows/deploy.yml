@@ -20,8 +20,8 @@ jobs:
           context: .
           push: false
           tags: policysathi:latest
-          cache-from: type=registry,ref=policysathi:buildcache
-          cache-to: type=registry,ref=policysathi:buildcache,mode=max
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.0
@@ -32,6 +32,7 @@ jobs:
           port: 22
           script: |
             cd /home/deva/policysathi
+            git pull origin main || true
             docker compose down || true
             docker compose build
             docker compose up -d
