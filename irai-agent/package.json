@@ -1,0 +1,11 @@
+{
+  "name": "irai-data-agent",
+  "version": "1.0.0",
+  "scripts": {
+    "scrape": "node src/scraper.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
