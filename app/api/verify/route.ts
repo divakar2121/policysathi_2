@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
-const DB_PATH = "/home/deva/full_stack_app/irdai-analysis/data/entities_database.json";
+// Use env var or default to relative path
+const DB_PATH = process.env.IRDAI_DB_PATH || path.resolve(process.cwd(), './data/irdai/entities_database.json');
 
 let db: any = null;
 

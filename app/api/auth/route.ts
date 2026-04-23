@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
+import path from "path";
+import { config } from "@/lib/config";
 
-const USERS_FILE = "/home/deva/full_stack_app/policysathi/.users.json";
+// Resolve users file path (server-side only)
+const getUsersFilePath = () => {
+  const configuredPath = process.env.USERS_FILE_PATH;
+  if (configuredPath) {
+    return path.resolve(process.cwd(), configuredPath);
+  }
+  return path.resolve(process.cwd(), config.usersFilePath);
+};
 
 interface User {
   email: string;
@@ -9,6 +18,8 @@ interface User {
   name: string;
   created: string;
 }
+
+const USERS_FILE = getUsersFilePath();
 
 function loadUsers(): User[] {
   try {
