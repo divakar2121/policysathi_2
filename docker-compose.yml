@@ -7,6 +7,32 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      # Database
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      # AI
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      # Auth
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      # App
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      # Optional data paths (if you mount external volumes)
+      - USERS_FILE_PATH=${USERS_FILE_PATH:-./data/users.json}
+      - IRDAI_DB_PATH=${IRDAI_DB_PATH:-./data/irdai/entities_database.json}
+      - HEADLINES_FILE_PATH=${HEADLINES_FILE_PATH:-./data/irdai/headlines.json}
     env_file:
       - .env.local
+    volumes:
+      # Persist data directory (if you want to keep IRDAI DB and user files across rebuilds)
+      - ./data:/app/data:ro
+      # Optional: store uploads
+      - ./uploads:/app/uploads
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/auth"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
