@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        .profile-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        .profile-info {
+            margin-bottom: 25px;
+        }
+        .profile-info h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+        }
+        .profile-info p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        .btn {
+            background: #ffffff;
+            color: #4285F4;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-logout {
+            background: #ff6b6b;
+            color: white;
+        }
+        .btn-logout:hover {
+            background: #ff5252;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <!-- Colorful Google letters -->
+            <div style="font-size: 36px; font-weight: bold; margin-bottom: 15px;">
+                <span style="color: #4285F4;">G</span>
+                <span style="color: #EA4335;">o</span>
+                <span style="color: #FBBC05;">o</span>
+                <span style="color: #4285F4;">g</span>
+                <span style="color: #34A853;">l</span>
+                <span style="color: #EA4335;">e</span>
+            </div>
+            <h1>Welcome Back, {{ user.name }}!</h1>
+        </div>
+        
+        <div class="profile-card">
+            {% if user.picture %}
+            <img src="{{ user.picture }}" alt="Profile Picture" class="profile-img">
+            {% else %}
+            <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 3rem;">
+                ?
+            </div>
+            {% endif %}
+            
+            <div class="profile-info">
+                <h2>{{ user.name }}</h2>
+                <p>{{ user.email }}</p>
+                <p><small>User ID: {{ user.id }}</small></p>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-value">1</span>
+                <span class="stat-label">Login Today</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">5</span>
+                <span class="stat-label">Features Used</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">99%</span>
+                <span class="stat-label">Profile Complete</span>
+            </div>
+        </div>
+        
+        <div>
+            <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
+            <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

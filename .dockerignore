@@ -1,0 +1,17 @@
+.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.example
+Dockerfile
+.dockerignore
+README.md
+*.log
+frontend/**/__pycache__
+frontend/**/*.pyc
+backend/**/__pycache__
+backend/**/*.pyc
